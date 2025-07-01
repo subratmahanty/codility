@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="http://www.flowable.org/processdef">
+
+    <process id="vacationRequest" name="Vacation Request Process" isExecutable="true">
+
+        <startEvent id="startEvent" name="Start"/>
+
+        <userTask id="fillVacationForm" name="Fill Vacation Form" flowable:assignee="${employee}">
+            <documentation>Employee fills out vacation request form</documentation>
+        </userTask>
+
+        <exclusiveGateway id="daysGateway" name="Days Gateway"/>
+
+        <userTask id="managerApproval" name="Manager Approval" flowable:assignee="admin">
+            <documentation>Manager approval for vacation requests</documentation>
+        </userTask>
+
+        <userTask id="hrApproval" name="HR Approval" flowable:assignee="admin">
+            <documentation>HR approval for extended vacation requests (>= 5 days)</documentation>
+        </userTask>
+
+        <exclusiveGateway id="finalDecision" name="Final Decision"/>
+
+        <serviceTask id="sendConfirmationEmail" name="Send Confirmation Email" 
+                     flowable:delegateExpression="${emailServiceTask}">
+            <extensionElements>
+                <flowable:field name="recipient">
+                    <flowable:expression>${employee}</flowable:expression>
+                </flowable:field>
+                <flowable:field name="subject">
+                    <flowable:string>Vacation Request Approved</flowable:string>
+                </flowable:field>
+                <flowable:field name="body">
+                    <flowable:expression>Your vacation request from ${startDate} to ${endDate} has been approved.</flowable:expression>
+                </flowable:field>
+            </extensionElements>
+        </serviceTask>
+
+        <serviceTask id="sendDenialEmail" name="Send Denial Email" 
+                     flowable:delegateExpression="${emailServiceTask}">
+            <extensionElements>
+                <flowable:field name="recipient">
+                    <flowable:expression>${employee}</flowable:expression>
+                </flowable:field>
+                <flowable:field name="subject">
+                    <flowable:string>Vacation Request Denied</flowable:string>
+                </flowable:field>
+                <flowable:field name="body">
+                    <flowable:expression>Your vacation request from ${startDate} to ${endDate} has been denied. Reason: ${denialReason}</flowable:expression>
+                </flowable:field>
+            </extensionElements>
+        </serviceTask>
+
+        <endEvent id="endEvent" name="End"/>
+
+        <!-- Sequence Flows -->
+        <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="fillVacationForm"/>
+        <sequenceFlow id="flow2" sourceRef="fillVacationForm" targetRef="daysGateway"/>
+        
+        <!-- Short vacation (< 5 days) - Manager approval only -->
+        <sequenceFlow id="flow3" sourceRef="daysGateway" targetRef="managerApproval">
+            <conditionExpression xsi:type="tFormalExpression">${numberOfDays &lt; 5}</conditionExpression>
+        </sequenceFlow>
+        
+        <!-- Long vacation (>= 5 days) - HR approval required -->
+        <sequenceFlow id="flow4" sourceRef="daysGateway" targetRef="hrApproval">
+            <conditionExpression xsi:type="tFormalExpression">${numberOfDays &gt;= 5}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow5" sourceRef="managerApproval" targetRef="finalDecision"/>
+        <sequenceFlow id="flow6" sourceRef="hrApproval" targetRef="finalDecision"/>
+        
+        <sequenceFlow id="flow7" sourceRef="finalDecision" targetRef="sendConfirmationEmail">
+            <conditionExpression xsi:type="tFormalExpression">${approved == true}</conditionExpression>
+        </sequenceFlow>
+        
+        <sequenceFlow id="flow8" sourceRef="finalDecision" targetRef="sendDenialEmail">
+            <conditionExpression xsi:type="tFormalExpression">${approved == false}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow9" sourceRef="sendConfirmationEmail" targetRef="endEvent"/>
+        <sequenceFlow id="flow10" sourceRef="sendDenialEmail" targetRef="endEvent"/>
+
+    </process>
+
+</definitions>

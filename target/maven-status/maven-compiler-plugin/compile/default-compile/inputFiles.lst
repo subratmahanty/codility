@@ -1,0 +1,9 @@
+/workspace/src/main/java/com/example/flowable/config/SecurityConfig.java
+/workspace/src/main/java/com/example/flowable/service/WorkflowService.java
+/workspace/src/main/java/com/example/flowable/dto/TaskDto.java
+/workspace/src/main/java/com/example/flowable/FlowableApplication.java
+/workspace/src/main/java/com/example/flowable/controller/WorkflowController.java
+/workspace/src/main/java/com/example/flowable/delegate/EmailServiceTask.java
+/workspace/src/main/java/com/example/flowable/controller/PublicController.java
+/workspace/src/main/java/com/example/flowable/dto/ProcessInstanceDto.java
+/workspace/src/main/java/com/example/flowable/dto/StartProcessRequest.java

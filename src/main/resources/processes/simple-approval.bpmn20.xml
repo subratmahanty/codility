@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="http://www.flowable.org/processdef">
+
+    <process id="simpleApproval" name="Simple Approval Process" isExecutable="true">
+
+        <startEvent id="startEvent" name="Start"/>
+
+        <userTask id="submitRequest" name="Submit Request" flowable:assignee="user">
+            <documentation>Submit a request for approval</documentation>
+        </userTask>
+
+        <userTask id="managerApproval" name="Manager Approval" flowable:assignee="admin">
+            <documentation>Manager reviews and approves/rejects the request</documentation>
+        </userTask>
+
+        <exclusiveGateway id="approvalDecision" name="Approval Decision"/>
+
+        <serviceTask id="sendApprovalEmail" name="Send Approval Email" 
+                     flowable:delegateExpression="${emailServiceTask}">
+            <extensionElements>
+                <flowable:field name="recipient">
+                    <flowable:expression>${requester}</flowable:expression>
+                </flowable:field>
+                <flowable:field name="subject">
+                    <flowable:string>Request Approved</flowable:string>
+                </flowable:field>
+                <flowable:field name="body">
+                    <flowable:expression>Your request "${requestTitle}" has been approved.</flowable:expression>
+                </flowable:field>
+            </extensionElements>
+        </serviceTask>
+
+        <serviceTask id="sendRejectionEmail" name="Send Rejection Email" 
+                     flowable:delegateExpression="${emailServiceTask}">
+            <extensionElements>
+                <flowable:field name="recipient">
+                    <flowable:expression>${requester}</flowable:expression>
+                </flowable:field>
+                <flowable:field name="subject">
+                    <flowable:string>Request Rejected</flowable:string>
+                </flowable:field>
+                <flowable:field name="body">
+                    <flowable:expression>Your request "${requestTitle}" has been rejected. Reason: ${rejectionReason}</flowable:expression>
+                </flowable:field>
+            </extensionElements>
+        </serviceTask>
+
+        <endEvent id="endEvent" name="End"/>
+
+        <!-- Sequence Flows -->
+        <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="submitRequest"/>
+        <sequenceFlow id="flow2" sourceRef="submitRequest" targetRef="managerApproval"/>
+        <sequenceFlow id="flow3" sourceRef="managerApproval" targetRef="approvalDecision"/>
+        
+        <sequenceFlow id="flow4" sourceRef="approvalDecision" targetRef="sendApprovalEmail">
+            <conditionExpression xsi:type="tFormalExpression">${approved == true}</conditionExpression>
+        </sequenceFlow>
+        
+        <sequenceFlow id="flow5" sourceRef="approvalDecision" targetRef="sendRejectionEmail">
+            <conditionExpression xsi:type="tFormalExpression">${approved == false}</conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="flow6" sourceRef="sendApprovalEmail" targetRef="endEvent"/>
+        <sequenceFlow id="flow7" sourceRef="sendRejectionEmail" targetRef="endEvent"/>
+
+    </process>
+
+</definitions>

@@ -1,0 +1,9 @@
+com/example/flowable/controller/WorkflowController.class
+com/example/flowable/dto/TaskDto.class
+com/example/flowable/delegate/EmailServiceTask.class
+com/example/flowable/config/SecurityConfig.class
+com/example/flowable/controller/PublicController.class
+com/example/flowable/dto/StartProcessRequest.class
+com/example/flowable/FlowableApplication.class
+com/example/flowable/dto/ProcessInstanceDto.class
+com/example/flowable/service/WorkflowService.class

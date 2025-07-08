@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:workflow_platform}
+    username: ${DB_USERNAME:workflow_user}
+    password: ${DB_PASSWORD:workflow_password}
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+  
+  h2:
+    console:
+      enabled: false
+
+# Security
+jwt:
+  secret: ${JWT_SECRET:myProductionSecretKey123456789012345678901234567890}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+# Logging
+logging:
+  level:
+    com.workflowplatform: INFO
+    org.flowable: WARN
+    org.springframework.security: WARN
+  file:
+    name: logs/workflow-platform.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Flowable
+flowable:
+  database-schema-update: false
+
+# Management
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

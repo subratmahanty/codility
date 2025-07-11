@@ -2,6 +2,9 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
              targetNamespace="http://www.workflowplatform.com/workflow"
              xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL
                                  http://www.omg.org/spec/BPMN/20100524/BPMN20.xsd">
@@ -133,5 +136,156 @@
     <sequenceFlow id="flow10" sourceRef="l3DecisionTask" targetRef="caseCompletedEvent"/>
 
   </process>
+
+  <!-- BPMN Diagram Interchange (BPMNDI) -->
+  <bpmndi:BPMNDiagram id="BPMNDiagram_threeLevelWorkflow">
+    <bpmndi:BPMNPlane id="BPMNPlane_threeLevelWorkflow" bpmnElement="threeLevelWorkflow">
+      
+      <!-- Start Event Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_startEvent" bpmnElement="startEvent">
+        <omgdc:Bounds x="50" y="150" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="35" y="190" width="66" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- L1 Maker Task Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_l1MakerTask" bpmnElement="l1MakerTask">
+        <omgdc:Bounds x="150" y="128" width="100" height="80"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="159" y="144" width="82" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- L1 Checker Task Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_l1CheckerTask" bpmnElement="l1CheckerTask">
+        <omgdc:Bounds x="300" y="128" width="100" height="80"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="308" y="144" width="84" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- L1 Decision Gateway Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_l1DecisionGateway" bpmnElement="l1DecisionGateway" isMarkerVisible="true">
+        <omgdc:Bounds x="450" y="143" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="441" y="200" width="68" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- L2 Maker Task Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_l2MakerTask" bpmnElement="l2MakerTask">
+        <omgdc:Bounds x="425" y="280" width="100" height="80"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="434" y="296" width="82" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- L2 Checker Task Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_l2CheckerTask" bpmnElement="l2CheckerTask">
+        <omgdc:Bounds x="575" y="280" width="100" height="80"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="583" y="296" width="84" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- L2 Decision Gateway Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_l2DecisionGateway" bpmnElement="l2DecisionGateway" isMarkerVisible="true">
+        <omgdc:Bounds x="725" y="295" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="716" y="352" width="68" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- L3 Decision Task Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_l3DecisionTask" bpmnElement="l3DecisionTask">
+        <omgdc:Bounds x="700" y="420" width="100" height="80"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="709" y="436" width="82" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- Case Completed End Event Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_caseCompletedEvent" bpmnElement="caseCompletedEvent">
+        <omgdc:Bounds x="850" y="150" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="828" y="193" width="80" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- Case Rejected End Event Shape -->
+      <bpmndi:BPMNShape id="BPMNShape_caseRejectedEvent" bpmnElement="caseRejectedEvent">
+        <omgdc:Bounds x="850" y="442" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="832" y="485" width="72" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- Sequence Flow Edges -->
+      <bpmndi:BPMNEdge id="BPMNEdge_flow1" bpmnElement="flow1">
+        <omgdi:waypoint x="86" y="168"/>
+        <omgdi:waypoint x="150" y="168"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow2" bpmnElement="flow2">
+        <omgdi:waypoint x="250" y="168"/>
+        <omgdi:waypoint x="300" y="168"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow3" bpmnElement="flow3">
+        <omgdi:waypoint x="400" y="168"/>
+        <omgdi:waypoint x="450" y="168"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow4" bpmnElement="flow4">
+        <omgdi:waypoint x="500" y="168"/>
+        <omgdi:waypoint x="850" y="168"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="658" y="150" width="41" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow5" bpmnElement="flow5">
+        <omgdi:waypoint x="475" y="193"/>
+        <omgdi:waypoint x="475" y="280"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="414" y="232" width="76" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow6" bpmnElement="flow6">
+        <omgdi:waypoint x="525" y="320"/>
+        <omgdi:waypoint x="575" y="320"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow7" bpmnElement="flow7">
+        <omgdi:waypoint x="675" y="320"/>
+        <omgdi:waypoint x="725" y="320"/>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow8" bpmnElement="flow8">
+        <omgdi:waypoint x="750" y="295"/>
+        <omgdi:waypoint x="750" y="168"/>
+        <omgdi:waypoint x="850" y="168"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="759" y="225" width="41" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow9" bpmnElement="flow9">
+        <omgdi:waypoint x="750" y="345"/>
+        <omgdi:waypoint x="750" y="420"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="689" y="378" width="76" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="BPMNEdge_flow10" bpmnElement="flow10">
+        <omgdi:waypoint x="800" y="460"/>
+        <omgdi:waypoint x="850" y="460"/>
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
 
 </definitions>

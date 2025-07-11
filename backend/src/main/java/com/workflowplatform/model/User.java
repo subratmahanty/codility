@@ -73,7 +73,12 @@ public class User implements UserDetails {
     public enum Role {
         ROLE_USER,
         ROLE_ADMIN,
-        ROLE_PROCESS_MANAGER
+        ROLE_PROCESS_MANAGER,
+        ROLE_L1_MAKER,
+        ROLE_L1_CHECKER,
+        ROLE_L2_MAKER,
+        ROLE_L2_CHECKER,
+        ROLE_L3_DECISION_MAKER
     }
 
     // Constructors

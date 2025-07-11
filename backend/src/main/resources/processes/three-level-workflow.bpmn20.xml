@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="http://www.workflowplatform.com/workflow"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL
+                                 http://www.omg.org/spec/BPMN/20100524/BPMN20.xsd">
+
+  <process id="threeLevelWorkflow" name="Three Level Workflow Process" isExecutable="true">
+
+    <!-- Start Event -->
+    <startEvent id="startEvent" name="Case Created">
+      <documentation>A new workflow case has been created and needs to be processed through the 3-level approval system</documentation>
+    </startEvent>
+
+    <!-- L1 Maker Task -->
+    <userTask id="l1MakerTask" name="L1 Maker Decision" flowable:candidateGroups="L1_MAKERS">
+      <documentation>L1 Maker needs to make decisions on the case items</documentation>
+      <extensionElements>
+        <flowable:formProperty id="caseId" name="Case ID" type="long" readable="true" writable="false"/>
+        <flowable:formProperty id="caseTitle" name="Case Title" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="makerDecision" name="Maker Decision" type="enum" required="true">
+          <flowable:value id="APPROVE" name="Approve"/>
+          <flowable:value id="REJECT" name="Reject"/>
+        </flowable:formProperty>
+        <flowable:formProperty id="comments" name="Comments" type="string"/>
+      </extensionElements>
+    </userTask>
+
+    <!-- L1 Checker Task -->
+    <userTask id="l1CheckerTask" name="L1 Checker Review" flowable:candidateGroups="L1_CHECKERS">
+      <documentation>L1 Checker needs to review and validate the maker's decisions</documentation>
+      <extensionElements>
+        <flowable:formProperty id="caseId" name="Case ID" type="long" readable="true" writable="false"/>
+        <flowable:formProperty id="caseTitle" name="Case Title" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="makerBy" name="Maker" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="checkerDecision" name="Checker Decision" type="enum" required="true">
+          <flowable:value id="APPROVE" name="Approve"/>
+          <flowable:value id="ESCALATE" name="Escalate to L2"/>
+        </flowable:formProperty>
+        <flowable:formProperty id="comments" name="Comments" type="string"/>
+      </extensionElements>
+    </userTask>
+
+    <!-- L1 Decision Gateway -->
+    <exclusiveGateway id="l1DecisionGateway" name="L1 Decision"/>
+
+    <!-- L2 Maker Task -->
+    <userTask id="l2MakerTask" name="L2 Maker Decision" flowable:candidateGroups="L2_MAKERS">
+      <documentation>L2 Maker needs to make decisions on the escalated case items</documentation>
+      <extensionElements>
+        <flowable:formProperty id="caseId" name="Case ID" type="long" readable="true" writable="false"/>
+        <flowable:formProperty id="caseTitle" name="Case Title" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="escalationReason" name="Escalation Reason" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="makerDecision" name="Maker Decision" type="enum" required="true">
+          <flowable:value id="APPROVE" name="Approve"/>
+          <flowable:value id="REJECT" name="Reject"/>
+        </flowable:formProperty>
+        <flowable:formProperty id="comments" name="Comments" type="string"/>
+      </extensionElements>
+    </userTask>
+
+    <!-- L2 Checker Task -->
+    <userTask id="l2CheckerTask" name="L2 Checker Review" flowable:candidateGroups="L2_CHECKERS">
+      <documentation>L2 Checker needs to review and validate the L2 maker's decisions</documentation>
+      <extensionElements>
+        <flowable:formProperty id="caseId" name="Case ID" type="long" readable="true" writable="false"/>
+        <flowable:formProperty id="caseTitle" name="Case Title" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="makerBy" name="Maker" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="checkerDecision" name="Checker Decision" type="enum" required="true">
+          <flowable:value id="APPROVE" name="Approve"/>
+          <flowable:value id="ESCALATE" name="Escalate to L3"/>
+        </flowable:formProperty>
+        <flowable:formProperty id="comments" name="Comments" type="string"/>
+      </extensionElements>
+    </userTask>
+
+    <!-- L2 Decision Gateway -->
+    <exclusiveGateway id="l2DecisionGateway" name="L2 Decision"/>
+
+    <!-- L3 Final Decision Task -->
+    <userTask id="l3DecisionTask" name="L3 Final Decision" flowable:candidateGroups="L3_DECISION_MAKERS">
+      <documentation>L3 Decision Maker provides final resolution for the case</documentation>
+      <extensionElements>
+        <flowable:formProperty id="caseId" name="Case ID" type="long" readable="true" writable="false"/>
+        <flowable:formProperty id="caseTitle" name="Case Title" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="escalationHistory" name="Escalation History" type="string" readable="true" writable="false"/>
+        <flowable:formProperty id="l3Decision" name="Final Decision" type="enum" required="true">
+          <flowable:value id="APPROVE" name="Final Approve"/>
+          <flowable:value id="REJECT" name="Final Reject"/>
+        </flowable:formProperty>
+        <flowable:formProperty id="comments" name="Final Comments" type="string"/>
+      </extensionElements>
+    </userTask>
+
+    <!-- Case Completed End Event -->
+    <endEvent id="caseCompletedEvent" name="Case Completed">
+      <documentation>The workflow case has been completed successfully</documentation>
+    </endEvent>
+
+    <!-- Case Rejected End Event -->
+    <endEvent id="caseRejectedEvent" name="Case Rejected">
+      <documentation>The workflow case has been rejected</documentation>
+    </endEvent>
+
+    <!-- Sequence Flows -->
+    <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="l1MakerTask"/>
+    
+    <sequenceFlow id="flow2" sourceRef="l1MakerTask" targetRef="l1CheckerTask"/>
+    
+    <sequenceFlow id="flow3" sourceRef="l1CheckerTask" targetRef="l1DecisionGateway"/>
+    
+    <sequenceFlow id="flow4" sourceRef="l1DecisionGateway" targetRef="caseCompletedEvent" name="Approve">
+      <conditionExpression xsi:type="tFormalExpression">${checkerDecision == 'APPROVE' &amp;&amp; allDecisionsMatch == true}</conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="flow5" sourceRef="l1DecisionGateway" targetRef="l2MakerTask" name="Escalate to L2">
+      <conditionExpression xsi:type="tFormalExpression">${checkerDecision == 'ESCALATE' || allDecisionsMatch == false}</conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="flow6" sourceRef="l2MakerTask" targetRef="l2CheckerTask"/>
+    
+    <sequenceFlow id="flow7" sourceRef="l2CheckerTask" targetRef="l2DecisionGateway"/>
+    
+    <sequenceFlow id="flow8" sourceRef="l2DecisionGateway" targetRef="caseCompletedEvent" name="Approve">
+      <conditionExpression xsi:type="tFormalExpression">${checkerDecision == 'APPROVE' &amp;&amp; allDecisionsMatch == true}</conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="flow9" sourceRef="l2DecisionGateway" targetRef="l3DecisionTask" name="Escalate to L3">
+      <conditionExpression xsi:type="tFormalExpression">${checkerDecision == 'ESCALATE' || allDecisionsMatch == false}</conditionExpression>
+    </sequenceFlow>
+    
+    <sequenceFlow id="flow10" sourceRef="l3DecisionTask" targetRef="caseCompletedEvent"/>
+
+  </process>
+
+</definitions>

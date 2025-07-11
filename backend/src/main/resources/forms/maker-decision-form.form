@@ -1,0 +1,164 @@
+{
+  "key": "makerDecisionForm",
+  "name": "Maker Decision Form",
+  "description": "Form for makers to submit decisions on case items",
+  "version": 1,
+  "fields": [
+    {
+      "fieldType": "FormField",
+      "id": "caseId",
+      "name": "Case ID",
+      "type": "long",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Case ID"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "caseTitle",
+      "name": "Case Title",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Case Title"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1Name",
+      "name": "Item 1 Name",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Decision Item 1"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1Decision",
+      "name": "Item 1 Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1Comments",
+      "name": "Item 1 Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Comments for Item 1 decision"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2Name",
+      "name": "Item 2 Name",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Decision Item 2"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2Decision",
+      "name": "Item 2 Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2Comments",
+      "name": "Item 2 Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Comments for Item 2 decision"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3Name",
+      "name": "Item 3 Name",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Decision Item 3"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3Decision",
+      "name": "Item 3 Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3Comments",
+      "name": "Item 3 Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Comments for Item 3 decision"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "generalComments",
+      "name": "General Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Any additional comments for this case"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "submit",
+      "name": "Submit Decisions"
+    }
+  ]
+}

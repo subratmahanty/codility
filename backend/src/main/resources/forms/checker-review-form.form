@@ -1,0 +1,235 @@
+{
+  "key": "checkerReviewForm",
+  "name": "Checker Review Form",
+  "description": "Form for checkers to review and validate maker decisions",
+  "version": 1,
+  "fields": [
+    {
+      "fieldType": "FormField",
+      "id": "caseId",
+      "name": "Case ID",
+      "type": "long",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Case ID"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "caseTitle",
+      "name": "Case Title",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Case Title"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "makerName",
+      "name": "Maker",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Maker who submitted decisions"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1Name",
+      "name": "Item 1 Name",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Decision Item 1"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1MakerDecision",
+      "name": "Item 1 Maker Decision",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Maker's decision for Item 1"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1CheckerDecision",
+      "name": "Item 1 Checker Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1Override",
+      "name": "Override Item 1",
+      "type": "boolean",
+      "required": false,
+      "readable": true,
+      "writable": true
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1Comments",
+      "name": "Item 1 Checker Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Checker comments for Item 1"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2Name",
+      "name": "Item 2 Name",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Decision Item 2"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2MakerDecision",
+      "name": "Item 2 Maker Decision",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Maker's decision for Item 2"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2CheckerDecision",
+      "name": "Item 2 Checker Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2Override",
+      "name": "Override Item 2",
+      "type": "boolean",
+      "required": false,
+      "readable": true,
+      "writable": true
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2Comments",
+      "name": "Item 2 Checker Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Checker comments for Item 2"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3Name",
+      "name": "Item 3 Name",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Decision Item 3"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3MakerDecision",
+      "name": "Item 3 Maker Decision",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Maker's decision for Item 3"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3CheckerDecision",
+      "name": "Item 3 Checker Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3Override",
+      "name": "Override Item 3",
+      "type": "boolean",
+      "required": false,
+      "readable": true,
+      "writable": true
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3Comments",
+      "name": "Item 3 Checker Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Checker comments for Item 3"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "generalComments",
+      "name": "General Checker Comments",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Overall checker comments for this case"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "approve",
+      "name": "Approve All Decisions"
+    },
+    {
+      "id": "escalate",
+      "name": "Escalate to Next Level"
+    }
+  ]
+}

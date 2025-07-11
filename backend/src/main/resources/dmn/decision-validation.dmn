@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+             xmlns:flowable="http://flowable.org/dmn"
+             id="decision-validation"
+             name="Decision Validation"
+             namespace="http://www.workflowplatform.com/dmn">
+
+  <decision id="validateDecisions" name="Validate Decisions">
+    <decisionTable id="decisionTable" hitPolicy="FIRST">
+      <input id="input1" label="Maker Decision Item 1">
+        <inputExpression id="inputExpression1" typeRef="string">
+          <text>makerDecision1</text>
+        </inputExpression>
+        <inputValues>
+          <text>"FM","PM"</text>
+        </inputValues>
+      </input>
+      
+      <input id="input2" label="Checker Decision Item 1">
+        <inputExpression id="inputExpression2" typeRef="string">
+          <text>checkerDecision1</text>
+        </inputExpression>
+        <inputValues>
+          <text>"FM","PM"</text>
+        </inputValues>
+      </input>
+      
+      <input id="input3" label="Maker Decision Item 2">
+        <inputExpression id="inputExpression3" typeRef="string">
+          <text>makerDecision2</text>
+        </inputExpression>
+        <inputValues>
+          <text>"FM","PM"</text>
+        </inputValues>
+      </input>
+      
+      <input id="input4" label="Checker Decision Item 2">
+        <inputExpression id="inputExpression4" typeRef="string">
+          <text>checkerDecision2</text>
+        </inputExpression>
+        <inputValues>
+          <text>"FM","PM"</text>
+        </inputValues>
+      </input>
+      
+      <input id="input5" label="Maker Decision Item 3">
+        <inputExpression id="inputExpression5" typeRef="string">
+          <text>makerDecision3</text>
+        </inputExpression>
+        <inputValues>
+          <text>"FM","PM"</text>
+        </inputValues>
+      </input>
+      
+      <input id="input6" label="Checker Decision Item 3">
+        <inputExpression id="inputExpression6" typeRef="string">
+          <text>checkerDecision3</text>
+        </inputExpression>
+        <inputValues>
+          <text>"FM","PM"</text>
+        </inputValues>
+      </input>
+
+      <output id="output1" label="All Decisions Match" name="allDecisionsMatch" typeRef="boolean"/>
+      <output id="output2" label="Escalation Required" name="escalationRequired" typeRef="boolean"/>
+      <output id="output3" label="Decision Summary" name="decisionSummary" typeRef="string"/>
+
+      <!-- Rule 1: All decisions match -->
+      <rule id="rule1">
+        <inputEntry id="inputEntry1_1">
+          <text>makerDecision1</text>
+        </inputEntry>
+        <inputEntry id="inputEntry1_2">
+          <text>makerDecision1</text>
+        </inputEntry>
+        <inputEntry id="inputEntry1_3">
+          <text>makerDecision2</text>
+        </inputEntry>
+        <inputEntry id="inputEntry1_4">
+          <text>makerDecision2</text>
+        </inputEntry>
+        <inputEntry id="inputEntry1_5">
+          <text>makerDecision3</text>
+        </inputEntry>
+        <inputEntry id="inputEntry1_6">
+          <text>makerDecision3</text>
+        </inputEntry>
+        <outputEntry id="outputEntry1_1">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="outputEntry1_2">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="outputEntry1_3">
+          <text>"All decisions match - Case can be completed"</text>
+        </outputEntry>
+      </rule>
+
+      <!-- Rule 2: Some decisions don't match -->
+      <rule id="rule2">
+        <inputEntry id="inputEntry2_1">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_2">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_4">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_5">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="inputEntry2_6">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="outputEntry2_1">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="outputEntry2_2">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="outputEntry2_3">
+          <text>"Decisions don't match - Escalation required"</text>
+        </outputEntry>
+      </rule>
+
+    </decisionTable>
+  </decision>
+
+  <!-- Risk Assessment Decision -->
+  <decision id="riskAssessment" name="Risk Assessment">
+    <decisionTable id="riskDecisionTable" hitPolicy="FIRST">
+      <input id="riskInput1" label="Number of Escalations">
+        <inputExpression id="riskInputExpression1" typeRef="integer">
+          <text>escalationCount</text>
+        </inputExpression>
+      </input>
+      
+      <input id="riskInput2" label="Case Complexity">
+        <inputExpression id="riskInputExpression2" typeRef="string">
+          <text>caseComplexity</text>
+        </inputExpression>
+        <inputValues>
+          <text>"LOW","MEDIUM","HIGH"</text>
+        </inputValues>
+      </input>
+
+      <output id="riskOutput1" label="Risk Level" name="riskLevel" typeRef="string"/>
+      <output id="riskOutput2" label="Additional Review Required" name="additionalReviewRequired" typeRef="boolean"/>
+
+      <!-- High Risk: Multiple escalations with high complexity -->
+      <rule id="riskRule1">
+        <inputEntry id="riskInputEntry1_1">
+          <text>&gt;= 2</text>
+        </inputEntry>
+        <inputEntry id="riskInputEntry1_2">
+          <text>"HIGH"</text>
+        </inputEntry>
+        <outputEntry id="riskOutputEntry1_1">
+          <text>"HIGH"</text>
+        </outputEntry>
+        <outputEntry id="riskOutputEntry1_2">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+
+      <!-- Medium Risk: One escalation or medium complexity -->
+      <rule id="riskRule2">
+        <inputEntry id="riskInputEntry2_1">
+          <text>= 1</text>
+        </inputEntry>
+        <inputEntry id="riskInputEntry2_2">
+          <text>"MEDIUM","HIGH"</text>
+        </inputEntry>
+        <outputEntry id="riskOutputEntry2_1">
+          <text>"MEDIUM"</text>
+        </outputEntry>
+        <outputEntry id="riskOutputEntry2_2">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+
+      <!-- Low Risk: No escalations with low complexity -->
+      <rule id="riskRule3">
+        <inputEntry id="riskInputEntry3_1">
+          <text>= 0</text>
+        </inputEntry>
+        <inputEntry id="riskInputEntry3_2">
+          <text>"LOW"</text>
+        </inputEntry>
+        <outputEntry id="riskOutputEntry3_1">
+          <text>"LOW"</text>
+        </outputEntry>
+        <outputEntry id="riskOutputEntry3_2">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+
+    </decisionTable>
+  </decision>
+
+</definitions>

@@ -1,0 +1,168 @@
+{
+  "key": "l3FinalDecisionForm",
+  "name": "L3 Final Decision Form",
+  "description": "Form for L3 decision makers to provide final resolution",
+  "version": 1,
+  "fields": [
+    {
+      "fieldType": "FormField",
+      "id": "caseId",
+      "name": "Case ID",
+      "type": "long",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Case ID"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "caseTitle",
+      "name": "Case Title",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Case Title"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "escalationLevel",
+      "name": "Escalation Level",
+      "type": "text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Current escalation level"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "escalationHistory",
+      "name": "Escalation History",
+      "type": "multi-line-text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "History of previous decisions and escalations"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1Summary",
+      "name": "Item 1 Decision Summary",
+      "type": "multi-line-text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Summary of decisions for Item 1"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item1FinalDecision",
+      "name": "Item 1 Final Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2Summary",
+      "name": "Item 2 Decision Summary",
+      "type": "multi-line-text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Summary of decisions for Item 2"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item2FinalDecision",
+      "name": "Item 2 Final Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3Summary",
+      "name": "Item 3 Decision Summary",
+      "type": "multi-line-text",
+      "required": true,
+      "readable": true,
+      "writable": false,
+      "placeholder": "Summary of decisions for Item 3"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "item3FinalDecision",
+      "name": "Item 3 Final Decision",
+      "type": "dropdown",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "optionType": "manual",
+      "options": [
+        {
+          "id": "FM",
+          "name": "Financial Model (FM)"
+        },
+        {
+          "id": "PM",
+          "name": "Portfolio Model (PM)"
+        }
+      ]
+    },
+    {
+      "fieldType": "FormField",
+      "id": "finalJustification",
+      "name": "Final Decision Justification",
+      "type": "multi-line-text",
+      "required": true,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Provide detailed justification for the final decisions"
+    },
+    {
+      "fieldType": "FormField",
+      "id": "lessonsLearned",
+      "name": "Lessons Learned",
+      "type": "multi-line-text",
+      "required": false,
+      "readable": true,
+      "writable": true,
+      "placeholder": "Any lessons learned or process improvements identified"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "finalApprove",
+      "name": "Final Approval"
+    },
+    {
+      "id": "finalReject",
+      "name": "Final Rejection"
+    }
+  ]
+}

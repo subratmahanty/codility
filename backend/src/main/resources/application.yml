@@ -81,3 +81,55 @@ management:
   endpoint:
     health:
       show-details: always
+
+---
+# Production Profile Configuration
+spring:
+  config:
+    activate:
+      on-profile: prod
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/workflow_platform
+    username: workflow_user
+    password: workflow_password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 60000
+      idle-timeout: 300000
+      max-lifetime: 600000
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  
+  h2:
+    console:
+      enabled: false
+
+# Production Flowable Configuration
+flowable:
+  database-schema-update: false
+  async-executor-activate: true
+
+# Production Logging
+logging:
+  level:
+    root: INFO
+    com.workflowplatform: INFO
+    org.flowable: WARN
+    org.springframework.security: WARN
+  file:
+    name: logs/workflow-platform.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
